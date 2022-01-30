@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="@android:color/white"
+    app:cardElevation="12dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/search_cocktail_root"
+    app:cardCornerRadius="12dp"
+    android:elevation="50dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/beer_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/beer_image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            android:background="#ADD8E6">
+
+            <TextView
+                android:id="@+id/beer_name"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="24sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/beer_name"
+                android:textColor="@android:color/white"
+                android:background="#99141414" />
+
+            <TextView
+                android:id="@+id/beer_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/beer_description"
+                android:padding="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/beer_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/beer_alcohol_level" />
+
+            <TextView
+                android:id="@+id/beer_alcohol_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/beer_alcohol_level"
+                android:padding="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                app:layout_constraintBottom_toTopOf="@id/beer_ibu_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/beer_description" />
+
+            <TextView
+                android:id="@+id/beer_ibu_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/beer_ibu_value"
+                android:padding="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/beer_alcohol_level" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

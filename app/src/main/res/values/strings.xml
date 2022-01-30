@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Beerista</string>
+    <string name="search_hint">search a beer</string>
+    <string name="image_url">image_url</string>
+</resources>
