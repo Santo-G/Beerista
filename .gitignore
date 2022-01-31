@@ -14,3 +14,10 @@
 .cxx
 local.properties
 /.idea/
+/app/src/test/
+/app/src/androidTest/
+/app/src/main/java/com/worldbeers/beerista/BEERDTOO/
+/app/src/test/java/com/worldbeers/beerista/
+/app/src/androidTest/java/com/worldbeers/beerista/
+/app/src/test/
+/app/src/androidTest/

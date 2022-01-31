@@ -1,13 +1,12 @@
 package com.worldbeers.beerista.networking
 
-import com.worldbeers.beerista.domain.Beer
-import com.worldbeers.beerista.domain.BeerAPI
+import android.util.Log
+import com.worldbeers.beerista.domain.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
-import java.net.SocketTimeoutException
+import timber.log.Timber
 
 class BeerAPIImpl : BeerAPI {
 
@@ -27,44 +26,45 @@ class BeerAPIImpl : BeerAPI {
         service = retrofit.create(BeerService::class.java)
     }
 
-    override suspend fun loadBeers(beers: String): LoadBeersResult {
-        // try-catch per gestire errore chiamata di rete
+    override suspend fun loadBeers(): LoadBeersResult {
+        // try-catch for networking error management
         try {
-            val beersList = service.loadBeers(beers)
-            val beers = beersList.beers.mapNotNull {
+            val beersList = service.loadBeers()
+            val beers = beersList.mapNotNull {
                 it.toDomain()
             }
-
-
-            return if (cocktails.isEmpty()) {
-                Failure(NoCocktailFound)
+            return if (beers.isEmpty()) {
+                LoadBeersResult.Failure(LoadBeersError.NoBeersFound)
             } else {
-                Success(cocktails)
+                LoadBeersResult.Success(beers as ArrayList<Beer>)
             }
-        } catch (e: IOException) { // no internet
-            return Failure(NoInternet)
-        } catch (e: SocketTimeoutException) {
-            return Failure(SlowInternet)
         } catch (e: Exception) {
-            Timber.e(e, "Generic Exception on LoadCocktail")
-            return Failure(ServerError)
+            Log.d("Exception", e.message.toString())
+            Timber.e(e, "Generic Exception on LoadBeers")
+            return LoadBeersResult.Failure(LoadBeersError.ServerError)
         }
     }
 
-    override suspend fun loadDetailBeer(idBeer: Unit): LoadDetailBeer {
-        TODO("Not yet implemented")
+    override suspend fun loadDetailBeer(idBeer: Int): LoadBeersResult {
+        // TODO not implemented becouse if we makes another call for other details
+        //  and internet is down probably user won't have a detail of beers
+        return LoadBeersResult.Failure(LoadBeersError.NoBeersFound)
     }
 
-    private fun BeerDTO.BeerDTOItem.toDomain(): Beer? {
-        val id = id_beer.toLongOrNull()
+
+    private fun BeerDTOItem.toDomain(): Beer? {
+        val id = id
         return if (id != null) {
             Beer(
                 idBeer = id.toInt(),
-                name = str_name,
-                image = str_image_url,
-                description = str_description,
-                abv = dbl_abv,
-                ibu = dbl_ibu
+                name = name,
+                image = image_url,
+                description = description,
+                abv = abv,  // manage N/A state in ViewModel (home) when showing beers's details
+                ibu = ibu,  // manage N/A state in ViewModel (home) when showing beers's details
+                first_brewed = first_brewed,
+                food_pairing = food_pairing,    // List<String>
+                brewers_tips = brewers_tips,
             )
         } else {
             null

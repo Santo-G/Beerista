@@ -2,4 +2,7 @@
     <string name="app_name">Beerista</string>
     <string name="search_hint">search a beer</string>
     <string name="image_url">image_url</string>
+    <string name="no_beer_found">NO BEER FOUND</string>
+    <string name="error_image_no_beer">NO BEER FOUND</string>
+    <string name="error_image_no_server">server error</string>
 </resources>
