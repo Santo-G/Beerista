@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/filter_text_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/filter_message"
+        android:textSize="18dp"
+        android:padding="20dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/text_view_constraint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_text_message"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/after_filter_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/from"
+            android:padding="7dp"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/outlinedTextFieldFrom"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@id/after_filter_period"
+            app:layout_constraintStart_toEndOf="@id/after_filter_period"
+            app:layout_constraintTop_toTopOf="@id/after_filter_period"
+            android:hint="@string/mm_yyyy"
+            android:focusableInTouchMode="true" />
+
+        <TextView
+            android:id="@+id/before_filter_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/after_filter_period"
+            android:text="@string/to"
+            android:padding="7dp"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/outlinedTextFieldTo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@id/before_filter_period"
+            app:layout_constraintStart_toEndOf="@id/before_filter_period"
+            app:layout_constraintTop_toTopOf="@id/before_filter_period"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="@string/mm_yyyy" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/error_filter_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_constraint"
+        android:text="@string/insert_valid_dates"
+        android:visibility="gone"
+        android:textColor="#FF0000"
+        android:padding="7dp"
+        android:textSize="15dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

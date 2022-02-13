@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -18,5 +21,19 @@
         <argument
             android:name="beer"
             app:argType="com.worldbeers.beerista.domain.Beer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.worldbeers.beerista.home.SearchFragment"
+        android:label="SearchFragment" >
+        <argument
+            android:name="from"
+            app:argType="string" />
+        <argument
+            android:name="to"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

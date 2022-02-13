@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">Beerista</string>
-    <string name="search_hint">search a beer</string>
+    <string name="search_hint">Search a beer</string>
     <string name="image_url">image_url</string>
     <string name="no_beer_found">NO BEER FOUND</string>
     <string name="error_image_no_beer">NO BEER FOUND</string>
-    <string name="error_image_no_server">server error</string>
+    <string name="error_image_no_server">SERVER ERROR</string>
+    <string name="filter_message">Choose time period for Beer\'s filtering: </string>
+    <string name="from">From:  </string>
+    <string name="to">To:  </string>
+    <string name="mm_yyyy">mm-yyyy</string>
+    <string name="yes_button">Ok</string>
+    <string name="no_button">Cancel</string>
+    <string name="insert_valid_dates">Insert valid dates!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

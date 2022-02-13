@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="12dp">
+    android:layout_margin="12dp"
+    android:visibility="gone">
 
     <TextView
         android:id="@+id/textViewNoBeerFoundError"

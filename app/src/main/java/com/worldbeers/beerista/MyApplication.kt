@@ -5,17 +5,12 @@ import android.os.StrictMode
 import com.worldbeers.beerista.domain.appModule
 import com.worldbeers.beerista.koindi.networkingKoinModule
 import com.worldbeers.beerista.utils.LineNumberDebugTree
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.BuildConfig
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
-
 
 
 class MyApplication : Application() {

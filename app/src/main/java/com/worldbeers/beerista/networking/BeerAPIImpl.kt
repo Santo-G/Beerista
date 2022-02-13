@@ -1,7 +1,10 @@
 package com.worldbeers.beerista.networking
 
 import android.util.Log
-import com.worldbeers.beerista.domain.*
+import com.worldbeers.beerista.domain.Beer
+import com.worldbeers.beerista.domain.BeerAPI
+import com.worldbeers.beerista.domain.LoadBeersError
+import com.worldbeers.beerista.domain.LoadBeersResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -46,9 +49,47 @@ class BeerAPIImpl : BeerAPI {
     }
 
     override suspend fun loadDetailBeer(idBeer: Int): LoadBeersResult {
-        // TODO not implemented becouse if we makes another call for other details
+        // TODO not implemented because if we make another call for other details
         //  and internet is down probably user won't have a detail of beers
         return LoadBeersResult.Failure(LoadBeersError.NoBeersFound)
+    }
+
+    override suspend fun loadSearchBeers(brewedAfter: String, brewedBefore: String) : LoadBeersResult {
+        // try-catch for networking error management
+        try {
+            val beersSearchList = service.loadSearchBeers(brewedAfter, brewedBefore)
+            val beers = beersSearchList.mapNotNull {
+                it.toDomain()
+            }
+            return if (beers.isEmpty()) {
+                LoadBeersResult.Failure(LoadBeersError.NoBeersFound)
+            } else {
+                LoadBeersResult.Success(beers as ArrayList<Beer>)
+            }
+        } catch (e: Exception) {
+            Log.d("Exception", e.message.toString())
+            Timber.e(e, "Generic Exception on LoadBeers")
+            return LoadBeersResult.Failure(LoadBeersError.ServerError)
+        }
+    }
+
+    override suspend fun loadScrollBeers(pageNum: Int): LoadBeersResult {
+        // try-catch for networking error management
+        try {
+            val beersScrollList = service.loadScrollBeers(pageNum)
+            val beers = beersScrollList.mapNotNull {
+                it.toDomain()
+            }
+            return if (beers.isEmpty()) {
+                LoadBeersResult.Failure(LoadBeersError.NoBeersFound)
+            } else {
+                LoadBeersResult.Success(beers as ArrayList<Beer>)
+            }
+        } catch (e: Exception) {
+            Log.d("Exception", e.message.toString())
+            Timber.e(e, "Generic Exception on LoadBeers")
+            return LoadBeersResult.Failure(LoadBeersError.ServerError)
+        }
     }
 
 
@@ -60,10 +101,10 @@ class BeerAPIImpl : BeerAPI {
                 name = name,
                 image = image_url,
                 description = description,
-                abv = abv,  // manage N/A state in ViewModel (home) when showing beers's details
-                ibu = ibu,  // manage N/A state in ViewModel (home) when showing beers's details
+                abv = abv,
+                ibu = ibu,
                 first_brewed = first_brewed,
-                food_pairing = food_pairing,    // List<String>
+                food_pairing = food_pairing,
                 brewers_tips = brewers_tips,
             )
         } else {

@@ -1,6 +1,5 @@
 package com.worldbeers.beerista.home
 
-import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,16 +14,15 @@ import timber.log.Timber
 class HomeViewModel(
     private val repository: BeerRepository,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     val states = MutableLiveData<HomeScreenStates>()
     val actions = SingleLiveEvent<HomeScreenActions>()
 
-    // Check the type of event and acts according to this
+    // Check the type of event and acts accordingly
     fun send(event: HomeScreenEvents) {
         Timber.d(event.toString())
         when (event) {
-            // activity is ready
             HomeScreenEvents.OnReady -> {
                 loadContent()
             }
@@ -34,13 +32,12 @@ class HomeViewModel(
             is HomeScreenEvents.OnRefreshClicked -> {
                 loadContent()
             }
-        }
-    }
-
-    private fun onBeersFailure(result: LoadBeersResult.Failure) {
-        when (result.error) {
-            LoadBeersError.NoBeersFound -> states.postValue(HomeScreenStates.Error(ErrorStates.ShowNoBeerFound))
-            LoadBeersError.ServerError -> states.postValue(HomeScreenStates.Error(ErrorStates.ShowServerError))
+            is HomeScreenEvents.OnSearch -> {
+                actions.postValue(HomeScreenActions.NavigateToSearch(event.from, event.to))
+            }
+            is HomeScreenEvents.OnScroll -> {
+                loadScroll(event.pageNum)
+            }
         }
     }
 
@@ -64,10 +61,68 @@ class HomeViewModel(
                             brewers_tips = it.brewers_tips
                         )
                     }
-                    val generalContent = GeneralContent(beers)
-                    states.postValue(HomeScreenStates.Content(generalContent))
+                    states.postValue(HomeScreenStates.Content(beers))
                 }
             }
+        }
+    }
+
+    private fun loadSearch(from: String, to: String) {
+        states.postValue(HomeScreenStates.Loading)
+        viewModelScope.launch {
+            val beerResult = repository.loadSearchBeers(from, to)
+            when (beerResult) {
+                is LoadBeersResult.Failure -> onBeersFailure(beerResult)
+                is LoadBeersResult.Success -> {
+                    val beers = beerResult.beers.map {
+                        Beer(
+                            name = it.name,
+                            image = it.image,
+                            idBeer = it.idBeer,
+                            description = it.description,
+                            abv = it.abv,
+                            ibu = it.ibu,
+                            first_brewed = it.first_brewed,
+                            food_pairing = it.food_pairing,
+                            brewers_tips = it.brewers_tips
+                        )
+                    }
+                    states.postValue(HomeScreenStates.Content(beers))
+                }
+            }
+        }
+    }
+
+    private fun loadScroll(pageNum: Int) {
+        states.postValue(HomeScreenStates.Loading)
+        viewModelScope.launch {
+            val beerResult = repository.loadScrollBeers(pageNum)
+            when (beerResult) {
+                is LoadBeersResult.Failure -> onBeersFailure(beerResult)
+                is LoadBeersResult.Success -> {
+                    val beers = beerResult.beers.map {
+                        Beer(
+                            name = it.name,
+                            image = it.image,
+                            idBeer = it.idBeer,
+                            description = it.description,
+                            abv = it.abv,
+                            ibu = it.ibu,
+                            first_brewed = it.first_brewed,
+                            food_pairing = it.food_pairing,
+                            brewers_tips = it.brewers_tips
+                        )
+                    }
+                    states.postValue(HomeScreenStates.Content(beers))
+                }
+            }
+        }
+    }
+
+    private fun onBeersFailure(result: LoadBeersResult.Failure) {
+        when (result.error) {
+            LoadBeersError.NoBeersFound -> states.postValue(HomeScreenStates.Error(ErrorStates.ShowNoBeerFound))
+            LoadBeersError.ServerError -> states.postValue(HomeScreenStates.Error(ErrorStates.ShowServerError))
         }
     }
 }
@@ -80,7 +135,7 @@ class HomeViewModel(
 sealed class HomeScreenStates {
     object Loading : HomeScreenStates()
     data class Error(val error: ErrorStates) : HomeScreenStates()
-    data class Content(val generalContent: GeneralContent) : HomeScreenStates()
+    data class Content(val beerList: List<Beer>) : HomeScreenStates()
 }
 
 sealed class ErrorStates {
@@ -88,17 +143,16 @@ sealed class ErrorStates {
     object ShowServerError : ErrorStates()
 }
 
-class GeneralContent(val beersList: List<Beer>)
-
-
 sealed class HomeScreenActions {
     data class NavigateToDetail(val beer: Beer) : HomeScreenActions()
+    class NavigateToSearch(val from: String?, val to: String?) : HomeScreenActions()
 }
-
 
 // Contains all events that can be sent to ViewModel
 sealed class HomeScreenEvents {
     data class OnBeerClick(val beer: Beer) : HomeScreenEvents()
+    class OnSearch(val from: String?, val to: String?) : HomeScreenEvents()
     object OnReady : HomeScreenEvents()
     object OnRefreshClicked : HomeScreenEvents()
+    class OnScroll(val pageNum: Int) : HomeScreenEvents()
 }

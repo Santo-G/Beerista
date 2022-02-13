@@ -13,7 +13,6 @@ class BeersAdapter(val context: Context, private val onClick: (Beer) -> Unit) :
 
     private var beerList: List<Beer> = emptyList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
         val binding = BeerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BeerViewHolder(binding)
@@ -35,16 +34,20 @@ class BeersAdapter(val context: Context, private val onClick: (Beer) -> Unit) :
 }
 
 
-// ViewHolder is an element of the list.
-// For each element of the list a Viewholder is created.
+/**
+ * ViewHolder is an element of the list.
+ * For each element of the list a Viewholder is created.
+ */
 class BeerViewHolder(private val binding: BeerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(beer: Beer, onClick: (Beer) -> Unit, context: Context) {
+
         Glide.with(context).load(beer.image).into(binding.beerImage)
         binding.beerName.text = beer.name
         binding.beerDescription.text = beer.description
         binding.beerAlcoholLevel.text = beer.abv.toString()
         binding.beerIbuValue.text = beer.ibu.toString()
-        binding.root.setOnClickListener{
+        binding.root.setOnClickListener {
             onClick(beer)
         }
     }
