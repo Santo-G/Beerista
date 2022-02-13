@@ -58,7 +58,7 @@ class HomeViewModel(
                             ibu = it.ibu,
                             first_brewed = it.first_brewed,
                             food_pairing = it.food_pairing,
-                            brewers_tips = it.brewers_tips
+                            tagline = it.tagline
                         )
                     }
                     states.postValue(HomeScreenStates.Content(beers))
@@ -84,7 +84,7 @@ class HomeViewModel(
                             ibu = it.ibu,
                             first_brewed = it.first_brewed,
                             food_pairing = it.food_pairing,
-                            brewers_tips = it.brewers_tips
+                            tagline = it.tagline
                         )
                     }
                     states.postValue(HomeScreenStates.Content(beers))
@@ -110,7 +110,7 @@ class HomeViewModel(
                             ibu = it.ibu,
                             first_brewed = it.first_brewed,
                             food_pairing = it.food_pairing,
-                            brewers_tips = it.brewers_tips
+                            tagline = it.tagline
                         )
                     }
                     states.postValue(HomeScreenStates.Content(beers))

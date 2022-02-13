@@ -11,5 +11,5 @@ data class Beer(
     val ibu: Double?,
     val first_brewed: String,
     val food_pairing: List<String>,
-    val brewers_tips: String
+    val tagline: String
 ) : Serializable

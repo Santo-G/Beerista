@@ -105,7 +105,7 @@ class BeerAPIImpl : BeerAPI {
                 ibu = ibu,
                 first_brewed = first_brewed,
                 food_pairing = food_pairing,
-                brewers_tips = brewers_tips,
+                tagline = tagline,
             )
         } else {
             null

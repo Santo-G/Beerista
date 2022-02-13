@@ -25,7 +25,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val first_brewed = beer.first_brewed
-        val brewers_tips = beer.brewers_tips
+        val brewers_tips = beer.tagline
 
         val adapter = FoodPairingAdapter()
         adapter.setFoodPairingList(beer.food_pairing)

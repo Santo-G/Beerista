@@ -46,7 +46,7 @@ class BeerViewHolder(private val binding: BeerItemBinding) : RecyclerView.ViewHo
         binding.beerName.text = beer.name
         binding.beerDescription.text = beer.description
         binding.beerAlcoholLevel.text = beer.abv.toString()
-        binding.beerIbuValue.text = beer.ibu.toString()
+        binding.beerTagline.text = beer.tagline.toString()
         binding.root.setOnClickListener {
             onClick(beer)
         }
