@@ -1,3 +1,7 @@
+<p align="center">
+<img src="Beerista.png" alt="Beerista logo" width="1023">
+</p>
+
 # Beerista
 This project consists of implementing a simple Android Kotlin app by using the [Punk API](https://punkapi.com/documentation/v2). 
 
