@@ -4,7 +4,6 @@ import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.ivanmorgillo.corsoandroid.teamb.utils.bindings.ViewBindingProperty
 
 /**
  * This file contains a set of extensions that allow us to simplify the way in which [ViewBinding]s are handled.
