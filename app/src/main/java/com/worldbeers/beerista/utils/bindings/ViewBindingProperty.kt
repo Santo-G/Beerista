@@ -1,4 +1,4 @@
-package com.ivanmorgillo.corsoandroid.teamb.utils.bindings
+package com.worldbeers.beerista.utils.bindings
 
 import android.os.Handler
 import android.os.Looper
@@ -22,7 +22,7 @@ abstract class ViewBindingProperty<in R : Any, T : ViewBinding>(
 
     @MainThread
     override fun getValue(thisRef: R, property: KProperty<*>): T {
-        viewBinding?.let { return it }
+        viewBinding?.let { return@let it }
 
         this.thisRef = thisRef
         val lifecycle = getLifecycleOwner(thisRef).lifecycle
