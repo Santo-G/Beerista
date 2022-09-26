@@ -3,7 +3,7 @@
 </p>
 
 # Beerista
-This project consists of implementing a simple Android Kotlin app by using the [Punk API](https://punkapi.com/documentation/v2). 
+This project consists of implementing an Android Kotlin app using the [Punk API](https://punkapi.com/documentation/v2). 
 
 ## Table of Contents
 - [Project description](#project-description)
