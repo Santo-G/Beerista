@@ -4,6 +4,8 @@
 
 # Beerista
 This project consists of implementing an Android Kotlin app using the [Punk API](https://punkapi.com/documentation/v2). 
+It is a small application to find out beers details. 
+Created with the aim to learn new technologies.
 
 ## Table of Contents
 - [Project description](#project-description)
