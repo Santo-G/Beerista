@@ -11,6 +11,7 @@ Created with the aim to learn new technologies.
 - [Project description](#project-description)
 - [Technical requirements](#technical-requirements)
 - [Tools](#tools)
+- [Technologies](#technologies)
 - [Contributing](#contributing)
 
 
@@ -33,6 +34,12 @@ The pagination logic should be implemented manually without using any third part
 - IntelliJ Idea Ultimate
 - Gradle
 - GitHub Actions
+
+## Technologies
+- MVVM 
+- Glide
+- Retrofit
+- Koin
 
 ## Contributing
 <a href="https://github.com/Santo-G">
